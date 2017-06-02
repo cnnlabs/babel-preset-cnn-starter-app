@@ -1,12 +1,4 @@
-module.exports = {
-    "presets": [
-        [ require.resolve('babel-preset-es2015'), { 'modules': false } ],
-        require.resolve('babel-preset-stage-2'),
-        require.resolve('babel-preset-react')
-    ],
-    "plugins": [
-        require.resolve('react-hot-loader/babel')
-    ],
+const config = {
     "env": {
         "server": {
             "plugins": [
@@ -16,11 +8,27 @@ module.exports = {
                     "extensions": [ ".css" ]
                 } ]
             ]
-        },
-        "test": {
-            "plugins": [
-                require.resolve('babel-plugin-transform-es2015-modules-commonjs')
-            ]
         }
     }
 };
+
+if (process.env.NODE_ENV === 'test') {
+    module.exports = Object.assign({}, config, {
+        presets: [
+            require.resolve('babel-preset-es2015'),
+            require.resolve('babel-preset-stage-2'),
+            require.resolve('babel-preset-react')
+        ]
+    })
+} else {
+    module.exports = Object.assign({}, config, {
+        presets: [
+            [ require.resolve('babel-preset-es2015'), { modules: false } ],
+            require.resolve('babel-preset-stage-2'),
+            require.resolve('babel-preset-react')
+        ],
+        plugins: [
+            require.resolve('react-hot-loader/babel')
+        ]
+    });
+}
