@@ -1,7 +1,16 @@
 const isTest = process.env.NODE_ENV === 'test';
 
-const config = {
-    presets: [
+const createPresets = () => {
+    return isTest ? [
+        require.resolve('babel-preset-flow'),
+        ['env', {
+            targets: {
+                browsers: ['last 2 versions', 'ie >= 9', '> 2%', 'ff >= 44', 'ios 8'],
+                node: 4
+            },
+            loose: true
+        }]
+    ] : [
         require.resolve('babel-preset-flow'),
         ['env', {
             modules: false,
@@ -11,7 +20,11 @@ const config = {
             },
             loose: true
         }]
-    ],
+    ];
+}
+
+const config = {
+    presets: createPresets(),
     plugins: [
         require.resolve('babel-plugin-transform-object-rest-spread'),
         require.resolve('babel-plugin-transform-class-properties'),
