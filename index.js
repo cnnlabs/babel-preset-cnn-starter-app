@@ -1,22 +1,35 @@
+const path = require('path');
 const isTest = process.env.NODE_ENV === 'test';
 
 const createPresets = () => {
     return isTest ? [
         require.resolve('babel-preset-flow'),
-        ['env', {
+        ['babel-preset-env', {
             targets: {
-                browsers: ['last 2 versions', 'ie >= 9', '> 2%', 'ff >= 44', 'ios 8'],
-                node: 4
+                browsers: [
+                    'last 2 versions',
+                    'ie >= 9',
+                    '> 2%',
+                    'ff >= 44',
+                    'ios 8'
+                ],
+                node: 6
             },
             loose: true
         }]
     ] : [
         require.resolve('babel-preset-flow'),
-        ['env', {
+        ['babel-preset-env', {
             modules: false,
             targets: {
-                browsers: ['last 2 versions', 'ie >= 9', '> 2%', 'ff >= 44', 'ios 8'],
-                node: 4
+                browsers: [
+                    'last 2 versions',
+                    'ie >= 9',
+                    '> 2%',
+                    'ff >= 44',
+                    'ios 8'
+                ],
+                node: 6
             },
             loose: true
         }]
@@ -34,7 +47,7 @@ const config = {
         require.resolve('babel-plugin-transform-react-display-name'),
         [require.resolve('babel-plugin-module-resolver'), {
             extensions: ['.js', '.jsx'],
-            alias: { src: './src' }
+            alias: { src: path.resolve(process.cwd(), 'src') }
         }],
         require.resolve('react-hot-loader/babel')
     ],
@@ -56,4 +69,4 @@ const config = {
     }
 }
 
-export default config;
+module.exports = config;
