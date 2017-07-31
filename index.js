@@ -15,7 +15,8 @@ const createPresets = () => {
                 ],
                 node: 6
             },
-            loose: true
+            loose: true,
+            useBuiltIns: true
         }]
     ] : [
         require.resolve('babel-preset-flow'),
@@ -31,7 +32,8 @@ const createPresets = () => {
                 ],
                 node: 6
             },
-            loose: true
+            loose: true,
+            useBuiltIns: true
         }]
     ];
 }
